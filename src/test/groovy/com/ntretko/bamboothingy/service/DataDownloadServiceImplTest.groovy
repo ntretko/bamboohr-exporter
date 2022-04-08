@@ -3,6 +3,7 @@ package com.ntretko.bamboothingy.service
 
 import com.ntretko.bamboothingy.exception.TimesheetMappingException
 import com.ntretko.bamboothingy.model.TimesheetEntry
+import com.ntretko.bamboothingy.service.impl.DataDownloadServiceImpl
 import groovy.xml.XmlSlurper
 import groovy.xml.slurpersupport.GPathResult
 import org.cyberneko.html.parsers.SAXParser
@@ -11,10 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class DataDownloadServiceTest extends Specification {
+class DataDownloadServiceImplTest extends Specification {
 
     @Autowired
-    private DataDownloadService dataDownloadService
+    private DataDownloadServiceImpl dataDownloadService
 
     def "can read html"() {
         given:

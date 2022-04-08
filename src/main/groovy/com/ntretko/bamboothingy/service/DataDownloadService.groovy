@@ -1,13 +1,12 @@
 package com.ntretko.bamboothingy.service
 
+import com.ntretko.bamboothingy.model.TimesheetEntry
+import com.ntretko.bamboothingy.security.BamboohrCredentials
 
-import org.springframework.stereotype.Service
+interface DataDownloadService {
 
-@Service
-class DataDownloadService {
+    String downloadHtml(String url, BamboohrCredentials credentials)
 
-    def downloadData(String url) {
+    List<TimesheetEntry> getEntries(String siteContentHtml)
 
-
-    }
 }
