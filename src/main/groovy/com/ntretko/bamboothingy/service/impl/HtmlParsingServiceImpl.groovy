@@ -41,7 +41,7 @@ class HtmlParsingServiceImpl implements HtmlParsingService {
             String timeString = row.depthFirst().find {
                 it['@class'] == "TimesheetSlat__dayTotal"
             }
-            return new TimesheetEntry(dateString: dateString, timeString: timeString)
+            return new TimesheetEntry(timeString, dateString)
         }
         return timesheetEntries
     }

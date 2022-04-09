@@ -1,3 +1,4 @@
+//file:noinspection GetterMethodCouldBeProperty
 package com.ntretko.bamboothingy.controller
 
 import com.ntretko.bamboothingy.model.TimesheetEntry
@@ -5,7 +6,6 @@ import com.ntretko.bamboothingy.service.CsvOutputService
 import com.ntretko.bamboothingy.service.HtmlParsingService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -22,7 +22,7 @@ class BambooController {
     CsvOutputService csvOutputService
 
     @GetMapping("/")
-    String getMainPage(Model model) {
+    String getMainPage() {
         return "main"
     }
 

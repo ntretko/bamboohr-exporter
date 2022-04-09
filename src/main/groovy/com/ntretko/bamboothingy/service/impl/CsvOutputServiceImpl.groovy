@@ -1,5 +1,6 @@
 package com.ntretko.bamboothingy.service.impl
 
+import com.ntretko.bamboothingy.factory.CSVFactory
 import com.ntretko.bamboothingy.model.TimesheetEntry
 import com.ntretko.bamboothingy.service.CsvOutputService
 import org.springframework.stereotype.Service
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service
 class CsvOutputServiceImpl implements CsvOutputService {
     @Override
     String convertToCsv(List<TimesheetEntry> entries) {
-        return ["test", "test2", "test3"].join(",")
+        CSVFactory csvFactory = new CSVFactory(";" as char)
+        return entries.collect { TimesheetEntry entry -> csvFactory.getCSVRow(entry) }.join("\n")
     }
 }
