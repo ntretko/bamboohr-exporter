@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BambooHR Parser</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
+</head>
+<body>
+<div class="fileInput">
+    <form action="#" class="inputForm" enctype="multipart/form-data" method="post" th:action="@{/uploadFile}">
+        <table>
+            <tr>
+                <td><label>Upload html from bambooHR timesheet page</label></td>
+            </tr>
+            <tr>
+                <td><input name="file" type="file"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Upload"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

@@ -1,39 +1,32 @@
-//file:noinspection DuplicateStringLiteral
-package com.ntretko.bamboothingy.service
+package com.ntretko.bamboothingy.service.impl
 
+import com.ntretko.bamboothingy.config.AppConfiguration
 import com.ntretko.bamboothingy.exception.TimesheetMappingException
 import com.ntretko.bamboothingy.model.TimesheetEntry
-import com.ntretko.bamboothingy.service.impl.DataDownloadServiceImpl
+import com.ntretko.bamboothingy.service.HtmlParsingService
 import groovy.xml.XmlSlurper
 import groovy.xml.slurpersupport.GPathResult
 import org.cyberneko.html.parsers.SAXParser
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
+import org.springframework.stereotype.Service
 
-@SpringBootTest
-class DataDownloadServiceImplTest extends Specification {
-
+@Service
+class HtmlParsingServiceImpl implements HtmlParsingService {
     @Autowired
-    private DataDownloadServiceImpl dataDownloadService
+    AppConfiguration config
 
-    def "can read html"() {
-        given:
-        File file = new File("src/test/resources/files/test.html")
-        assert file.exists()
-        when:
-        GPathResult http = new XmlSlurper(new SAXParser()).parseText(file.text)
+    @Override
+    List<TimesheetEntry> getEntries(String siteContentHtml) {
+        GPathResult http = new XmlSlurper(new SAXParser()).parseText(siteContentHtml)
         List timesheetList = http.depthFirst().findAll {
             it['@class'] == "TimesheetEntries"
         }
         assert timesheetList.size() == 1
         List<TimesheetEntry> timesheetEntries = getTimesheetEntries(timesheetList[0] as GPathResult)
-        println timesheetEntries
-        then:
-        noExceptionThrown()
+        return timesheetEntries
     }
 
-    List<TimesheetEntry> getTimesheetEntries(GPathResult timesheetUnparsed) {
+    private List<TimesheetEntry> getTimesheetEntries(GPathResult timesheetUnparsed) {
         List<GPathResult> rows = timesheetUnparsed.depthFirst().findAll {
             def matcher = (it['@class'] as String) =~ /^TimesheetSlat /
             if (matcher.size() > 1) {
@@ -52,4 +45,5 @@ class DataDownloadServiceImplTest extends Specification {
         }
         return timesheetEntries
     }
+
 }
